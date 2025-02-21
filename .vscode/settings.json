@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "**/assets": true,
+    "**/components": true,
+    "**/inspiration": true,
+    "**/js": true,
+    "**/pages": true,
+    "**/styles": true,
+    "**/tests": true,
+    "**/ts": true,
+    "**/index.html": true,
+    "**/info.txt": true,
+  }
+}

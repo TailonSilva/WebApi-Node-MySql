@@ -1,0 +1,11 @@
+ASSETS: Pasta onde fica os arquivos do projeto, imgens, videos , fontes...
+COMPONENTS: Pasta onde fica os componetes reutilizaveis, como cabeçalho, rodapé e navegação.
+DATA: Dados que serão usados, arquivos Json por exemplo.
+INSPIRATION: Imagens e arquivos que foram usados de inspiração para o Projeto.
+JS: Arquivos JavaScript que são usados nas paginas e na aplicação inicial, sempre carregando a partir do mainjs.
+TS: Arquivos TypeScript que serão compilados.
+PAGES: Arquivos HTML que serão as paginas separadas da Aplicação Principal
+STYLES: Arquivos CSS que serão usandos nas paginas e na Aplicação Inicial, sempre carregando a partir do style.css
+TESTS: Arquivos CSS ou JS que farão testes unitários e gerais.
+
+Index.html: Arquivo Principal da Aplicação.
