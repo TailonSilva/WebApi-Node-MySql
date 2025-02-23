@@ -7,6 +7,16 @@ const app = express();
 
 app.use(express.json());
 
+// Adicionar os cabeçalhos Access-Control-Allow-Origin
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 const Cliente = require('./class_clientes');
 const db = new Cliente()
 

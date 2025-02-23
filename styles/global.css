@@ -8,11 +8,43 @@ img {
     max-width: 100%;
 }
 
-@import url('./themes/dark.css');
-@import url('./themes/light.css');
+body {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
 
-@import url('../components/header.css');
-@import url('../components/footer.css');
+header {
+    margin-bottom: 20px;
+}
 
+h1 {
+    text-align: center;
+}
 
+p {
+    text-align: center;
+}
 
+form {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+form div {
+    flex-grow:1;
+    padding: 5px;
+}
+
+form div label {}
+
+form div input {
+    width: 100%;
+}
+
+table {
+    margin-top: 50px;
+    width: 100%;
+    text-align: center;
+}

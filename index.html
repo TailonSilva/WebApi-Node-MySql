@@ -9,15 +9,54 @@
 </head>
 <body>
     <header>
-        <h1>Bem-vindo à Minha Página</h1>
+        <h1>Bem-vindo à Meu Projeto Fulstack</h1>
+        <p>Neste projeto eu Criei um API Web com Express que faz um CRUD Simples em um banco de dados MySQL, e aqui famos fazer o front-end para poder manipular os dados dos clientes, crio também validações de dados no CPF para garatir que os dados que vão chegar no banco estarão no padrão correto.</p>
     </header>
     <main>
-        <p>Este é o conteúdo principal da página.</p>
-    </main>
-    <footer>
-        <p>&copy; 2023 Meu Projeto</p>
-    </footer>
+        <section>
+            <h1>Novo Cliente</h1>
 
-    <script src="./scripts/main.js"></script>
+            <form action="" method="post" id="formulario_cliente">
+                <div>
+                    <label for="inp_nome">Nome do Cliente</label>
+                    <input type="text" name="inp_nome" id="inp_nome">
+                </div>
+                <div>
+                    <label for="inp_nascimento">Data de Nascimento</label>
+                    <input type="date" name="inp_nascimento" id="inp_nascimento">
+                </div>
+                <div>
+                    <label for="inp_uf">Estado</label>
+                    <input type="text" name="inp_uf" id="inp_uf">
+                </div>
+                <div>
+                    <label for="inp_cpf">CPF</label>
+                    <input type="text" name="inp_cpf" id="inp_cpf">
+                </div>
+                <div>
+                    <input type="submit" value="Enviar" data-input="btnEnviar" id="btnEnviar">
+                </div>
+
+
+            </form>
+        </section>
+
+        <section>
+            <table id="tabelaClientes">
+                <tbody>
+                    <th>Código</th>
+                    <th>Nome do Cliente</th>
+                    <th>Data de Nascimento</th>
+                    <th>Idade</th>
+                    <th>Estado</th>
+                    <th>CPF</th>
+                </tbody>
+            </table>
+
+        </section>
+        
+    </main>
+
+    <script src="./js/main.js" type="module"></script>
 </body>
 </html>

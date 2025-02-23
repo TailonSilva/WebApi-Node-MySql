@@ -8,12 +8,13 @@ const conexao = mysql.createPool(config.connection_string)
 
 //CRIANDO A CLASSE QUE VAI CONFIGURAR O CRUD DOS CLIENTES
 module.exports = class Cliente {
-  constructor(id, nome, idade, uf, cpf) {
+  constructor(id, nome, idade, uf, cpf, data_nascimento) {
     this.id = id
     this.nome = nome
     this.idade = idade
     this.uf = uf
     this.cpf = cpf
+    this.data_nascimento = data_nascimento
   }
 
   async listaClientes() {
@@ -27,8 +28,8 @@ module.exports = class Cliente {
   }
 
   async inserirCliente(cliente) {
-    const valores = [cliente.nome, cliente.idade, cliente.uf, cliente.cpf]
-    await conexao.query("INSERT INTO clientes(nome, idade, uf, cpf) VALUES (?,?,?,?)", valores);
+    const valores = [cliente.nome, cliente.idade, cliente.uf, cliente.cpf, cliente.data_nascimento]
+    await conexao.query("INSERT INTO clientes(nome, idade, uf, cpf, data_nascimento) VALUES (?,?,?,?,?)", valores);
   }
 
   async alteraCliente(id, infoCliente) {
