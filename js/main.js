@@ -1,39 +1,8 @@
-//PEGANDO A DATA ENVIADO PELO FORMULÁRIO E COLOCANDO ELA NO MODELO DIA/MES/ANO
-const arrumaData = (dataForm) => {
-  //RECEBE A DATA DO FORMULÁRIO
-  //SPLIT: SEPARA AS INORMAÇÕES DE DIA MES E ANO QUE VEM JUNTAS COM IFEM
-  //REVERSE: ARRUMA AS INFORMAÇÕES QUE ESTAVA ANO DIA MES PARA DIA MES ANO
-  //JOIN: REFAZ A STRING COM A SEPARAÇÃO POR IFEM NOVAMENTE AGORA NO FORMATO DIA-MES-ANO
-  const dataNova = dataForm.split("-").reverse().join("/")
-  //RETORNA A DATA NO FORMATO CORRETO PARA O BANCO DE DADOS
-  return dataNova
-}
+let request = new XMLHttpRequest()
 
-//FUNÇÃO QUE CALCULA A IDADE A PARTIR DA DATA DE NASCIMENTO INFORMADA NO FORMULÁRIO.
-const calculaIdade = (dataNascimento) => {
-  const dataRecebida = dataNascimento.split("/")
-  
-  const diaNascimento = dataRecebida[0]
-  const mesNascimento = dataRecebida[1]
-  const AnoNascimento = dataRecebida[2]
+import arrumaData from './arrumaData.js'
+import calculaIdade from './calculaIdade.js'
 
-  const anoAtual = new Date().getFullYear()
-  const mesAtual = new Date().getMonth() + 1
-  const diaAtual = new Date().getDate()
-
-  const idade = anoAtual - AnoNascimento
-
-  
-  if (mesAtual >= mesNascimento) {
-    if(diaAtual >= diaNascimento) {
-      return idade
-    } else {
-      return idade -1
-    }
-  } else {
-    return idade - 1
-  }
-}
 
 //FUNCÇÃO QUE RETORNA TODOS OS CLIENTES DA TABELA CLIENTES DO BANCO DE DADOS
 const buscaClientes = async () => {
@@ -64,7 +33,6 @@ const adicionaCliente = async () => {
   const url = "http://127.0.0.1:3000/clientes";
 
   //ESSA PARTE DO CODIGO PEGA O ENDPOINT E AS INFORMAÇÕES DO FORMULARIO E MANDA UMA REQUISIÃO HTTP PARA A API
-  let request = new XMLHttpRequest()
   request.open("POST", url, true) //SEMPRE COM FOR POST VAI SER TRUE
   request.setRequestHeader("Content-Type" , "application/json")
   request.send(JSON.stringify(dados))
@@ -72,7 +40,15 @@ const adicionaCliente = async () => {
   formulario.reset()
 }
 
-//const excluiCliente = async () => {}
+//FUNÇÃO QUE O ID DA LINHA DO CODIGO E MANDA PARA O BANCO PARA EXCLUIR O REGISTRO
+const excluiCliente = async (id) => {
+  const url_delete = "http://127.0.0.1:3000/clientes/"+id;
+  
+  request.open("DELETE", url_delete);
+  request.setRequestHeader("Content-Type" , "application/json")
+  request.send();
+
+}
 
 //const editaCliente = async () => {}
 
@@ -87,6 +63,7 @@ const geraListaClientes = async () => {
     tabela.appendChild(linha)
 
     const c_cod = document.createElement('td')
+    c_cod.classList.add("codigo_cliente")
     const id = dados[i].id
     c_cod.innerText = id
     linha.appendChild(c_cod)
@@ -120,6 +97,11 @@ const geraListaClientes = async () => {
     btn_excluir.classList.add('btn_excluir')
     btn_excluir.innerText = "Excluir"
     linha.appendChild(btn_excluir)  
+    btn_excluir.addEventListener("click", event => {
+      event.preventDefault()
+      excluiCliente(id)
+
+    })
   }
 }
 
