@@ -33,8 +33,8 @@ module.exports = class Cliente {
   }
 
   async alteraCliente(id, infoCliente) {
-    const valores = [infoCliente.nome, infoCliente.idade, infoCliente.uf, infoCliente.cpf, id]
-    await conexao.query("UPDATE clientes SET nome=?, idade=?, uf=?, cpf=? WHERE id=?", valores);
+    const valores = [infoCliente.nome, infoCliente.idade, infoCliente.uf, infoCliente.cpf, infoCliente.data_nascimento, id]
+    await conexao.query("UPDATE clientes SET nome=?, idade=?, uf=?, cpf=?, data_nascimento=? WHERE id=? ", valores);
   }
 
   async deletaCliente(id) {

@@ -52,3 +52,11 @@ table {
 tr:nth-child(even) {
     background-color: rgba(0, 255, 42, 0.26);
 }
+
+#btnEditarDados {
+    display: none;
+}
+
+#btnEnviar {
+    display: block;
+}

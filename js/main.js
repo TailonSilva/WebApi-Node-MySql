@@ -2,7 +2,10 @@ let request = new XMLHttpRequest()
 
 import arrumaData from './arrumaData.js'
 import calculaIdade from './calculaIdade.js'
+import revertedata from './reverteData.js'
 
+const btn_enviar = document.getElementById('btnEnviar')
+const btn_editarDados = document.getElementById('btnEditarDados')
 
 //FUNCÇÃO QUE RETORNA TODOS OS CLIENTES DA TABELA CLIENTES DO BANCO DE DADOS
 const buscaClientes = async () => {
@@ -48,9 +51,68 @@ const excluiCliente = async (id) => {
   request.setRequestHeader("Content-Type" , "application/json")
   request.send();
 
+  window.location.reload(true)
+
 }
 
-//const editaCliente = async () => {}
+const alteracliente = async (dados, id) => {
+  const formulario = document.getElementById("formulario_cliente")
+
+  const url = "http://127.0.0.1:3000/clientes/"+id;
+
+  //ESSA PARTE DO CODIGO PEGA O ENDPOINT E AS INFORMAÇÕES DO FORMULARIO E MANDA UMA REQUISIÃO HTTP PARA A API
+  console.log(dados)
+  request.open("PATCH", url, true)
+  request.setRequestHeader("Content-Type" , "application/json")
+  request.send(JSON.stringify(dados))
+
+  formulario.reset()
+  btn_enviar.style.display = "block";
+  btn_editarDados.style.display = "none"
+
+  window.location.reload(true)
+
+}
+
+const preencheFormParaEdit = async (c_cliente, c_dt_nascimento, c_estado, c_cpf, id) => {
+
+  const nomeCliente = document.getElementById("inp_nome")
+  const dtnascimento = document.getElementById("inp_nascimento")
+  const uf = document.getElementById("inp_uf")
+  const cpf = document.getElementById("inp_cpf")
+
+  const novaData = revertedata(c_dt_nascimento)
+
+  nomeCliente.value = c_cliente
+  dtnascimento.value = novaData
+  uf.value = c_estado
+  cpf.value = c_cpf
+
+  console.log(nomeCliente.value)
+
+  btn_editarDados.addEventListener("click", event => {
+
+    const novoNomeCliente = document.getElementById("inp_nome").value
+
+    const novoDtnascimento = document.getElementById("inp_nascimento").value     
+    const novoUf = document.getElementById("inp_uf").value       
+    const novoCpf = document.getElementById("inp_cpf").value
+
+    const dtNascimentoAjustada = arrumaData(novoDtnascimento)
+    const idade = calculaIdade(dtNascimentoAjustada)
+
+    const dados = {
+      "nome" : novoNomeCliente,
+      "idade": idade,
+      "uf" : novoUf,
+      "cpf" : novoCpf,
+      "data_nascimento" : dtNascimentoAjustada
+    }
+
+    event.preventDefault()
+    alteracliente(dados, id)
+  })
+}
 
 const geraListaClientes = async () => {
   const tabela = document.getElementById("tabelaClientes")
@@ -92,6 +154,13 @@ const geraListaClientes = async () => {
     btn_editar.classList.add('btn_editar')
     btn_editar.innerText = "Editar"
     linha.appendChild(btn_editar)
+    btn_editar.addEventListener("click", event => {
+      event.preventDefault()
+      preencheFormParaEdit(dados[i].nome, dados[i].data_nascimento, dados[i].uf, dados[i].cpf, dados[i].id)
+      btn_enviar.style.display = "none";
+      btn_editarDados.style.display = "block"
+
+    })
 
     const btn_excluir = document.createElement("button")
     btn_excluir.classList.add('btn_excluir')
@@ -105,7 +174,7 @@ const geraListaClientes = async () => {
   }
 }
 
-const btn_enviar = document.getElementById("btnEnviar").addEventListener("click", event => {
+btn_enviar.addEventListener("click", event => {
   event.preventDefault()
   adicionaCliente()
 })

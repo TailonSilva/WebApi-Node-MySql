@@ -1,7 +1,7 @@
-const config = require('./config');
-
-const express = require('express');
+const config = require('./config')
 const porta = config.porta
+
+const express = require('express')
 
 const app = express();
 
@@ -10,15 +10,12 @@ app.use(express.json());
 // Adicionar os cabeçalhos Access-Control-Allow-Origin
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "*")
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE")
+  res.header("Access-Control-Allow-Headers","*");
   next();
 });
 
-const Cliente = require('./class_clientes');
+const Cliente = require('./class_clientes')
 const db = new Cliente()
 
 //FUNÇÃO ATUALIANDO CLIENTE DO BANCO DE DADOS *FUNCIONANDO*
