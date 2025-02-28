@@ -1,5 +1,12 @@
- let cursos:string[] = ["JS", "TS"]
+import geraListaClientes from "./geraListaClientes.js"
+geraListaClientes()
 
- cursos.push("Arduino")
+import adicionaCliente from "./adicionaCliente.js"
 
- console.log(cursos)
+const btn_enviar = document.getElementById("btnEnviar")
+
+btn_enviar.addEventListener("click", event => {
+  event.preventDefault()
+  adicionaCliente()
+})
+
