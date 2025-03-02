@@ -84,9 +84,6 @@ export default async function geraListaClientes() {
         event.preventDefault()
         excluiCliente(id)
       })
-  
     }
-
   }
-
 }
